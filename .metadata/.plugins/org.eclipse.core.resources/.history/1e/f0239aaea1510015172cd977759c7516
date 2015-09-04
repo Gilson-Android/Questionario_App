@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/br.com.ggc.questinario"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar" >
+    </include>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <br.com.ggc.questinario.Util.CircleProgressView
+            android:id="@+id/circleView"
+            android:max="10"
+            android:layout_gravity="center"
+            app:seekMode="true"
+            app:contourColor="@color/Azul_Claro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showUnit="false">
+            
+        </br.com.ggc.questinario.Util.CircleProgressView>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="16dp"
+        android:onClick="onClickFab"
+        android:src="@drawable/abc_ic_go_search_api_mtrl_alpha"
+        android:tint="@android:color/white"
+        app:borderWidth="0dp" />
+
+</LinearLayout>

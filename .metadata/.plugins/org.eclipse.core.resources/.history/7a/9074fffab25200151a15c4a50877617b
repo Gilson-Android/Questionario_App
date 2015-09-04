@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Questinario App</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_Inciair">Iniciar</string>
+    <string name="txt_Apresentacao">Ala!\n\nFicamos muito felizes em ter você em nosso processo seletivo.\n\nPor favor, toque no botão play para começar o questionário. </string>
+
+</resources>

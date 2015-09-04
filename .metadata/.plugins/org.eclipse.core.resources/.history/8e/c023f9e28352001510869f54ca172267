@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="Azul_Claro">#5fb2f7</color>
+    <color name="Azul"> #055e9b</color>
+    <color name="light_gray_header_color">#646663</color>
+     <color name="colorControlNormal">#646663</color>
+
+</resources>

@@ -1,0 +1,5 @@
+package br.com.ggc.questinario.email;
+
+public class JSSEProvider {
+
+}

@@ -1,0 +1,46 @@
+package br.com.ggc.questinario;
+
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.TranslateAnimation;
+
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+@SuppressWarnings("deprecation")
+public class ActivityBemVindo extends FragmentActivity {
+
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_bem_vindo);
+		
+		 findViewById(R.id.tvConteudo).clearAnimation();
+		 TranslateAnimation translation;
+		 translation = new TranslateAnimation(0f, 0F, 0f, getDisplayHeight() -  findViewById(R.id.tvConteudo).getHeight());
+		 translation.setStartOffset(500);
+		 translation.setDuration(2000);
+		 translation.setFillAfter(true);
+         translation.setInterpolator(new BounceInterpolator());
+         findViewById(R.id.tvConteudo).startAnimation(translation);
+
+	}
+	
+	private int getDisplayHeight() {
+		DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		return metrics.widthPixels;
+	}
+	
+	public void onClickFab(View v){
+		finish();
+		
+		
+	}
+}

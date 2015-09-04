@@ -1,0 +1,134 @@
+package br.com.ggc.questinario.segundoplano;
+
+import android.R.integer;
+import android.app.Activity;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+
+
+	public static class Enviar extends AsyncTask<String, String, integer>{
+		private Activity mActivity;
+		private ProgressDialog mDialog;
+		public Enviar(Activity _activity){
+			mActivity 	= _activity;
+		}
+
+		@Override
+		protected void onPostExecute(integer result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			Log.i("Envio", "onPostExecute");
+			if(mostrarDialog){
+				mDialog.dismiss();
+			}
+			if(activity != null){
+				if(activity.getClass().equals(CadastroAluno.class)){
+					CadastroAluno.retornoServidor(result, activity);
+				} else {
+					Lista.retornoServidor(result, activity, excluir, tipo, objeto);
+				}
+			}
+		}
+		
+		@Override
+		protected integer doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			Log.i(Constantes.TAG, "EnviarPosicaoAtual doInBackground");
+			try {
+				if (mContext != null && Constantes.getActivity() != null) {
+					if (mContext.getSharedPreferences("LOGIN", Activity.MODE_PRIVATE).getBoolean("enviar", false)) {
+						Rota rota = null;
+						if (Constantes.rota.getId_Servidor()> 0) {
+							rota = Constantes.rota;
+						}else {
+							rota = RotaDAO.retornaRota(Utilidades.getShared(mContext, "id_Rota", (long)0),Utilidades.getShared(mContext, "id_Perueiro", (long)0));
+						}
+						if (EnviarPosicaoAtual.getmLongitude() != 0 || Utilidades.getShared(mContext, "ParaRota", false)) {
+		    		    	if (Utilidades.getShared(mContext, "ParaRota", false)) {
+		    		    		obj = new LocalizacaoPerueiro(Utilidades.getShared(mContext, "id_Perueiro", (long)0), 0,0,rota.getId_Servidor(),0,0);
+							}else {
+								Condutor condutor = CondutorDAO.retornaCondutor(rota.getId_Condutor(),Utilidades.getShared(mContext, "id_Perueiro", (long)0));
+								obj = new LocalizacaoPerueiro(	rota.getId_Perueiro(), 
+																EnviarPosicaoAtual.getmLatitude(),
+																EnviarPosicaoAtual.getmLongitude(),
+																rota.getId_Servidor(),
+																condutor.getId_Servidor(),
+																condutor.getId_Veiculo());
+							}
+		    		    	enviarPosicao(obj);
+						}
+					}
+				}
+			} catch (Exception e) {
+				Log.e(Constantes.TAG, "EnviarPosicaoAtual doInBackground Exception:" + e.toString());
+			}	
+			
+			return null;
+		}
+		
+		private void enviarPosicao(LocalizacaoPerueiro _localizacaoPerueiro){
+			Log.i(Constantes.TAG, "EnviarPosicaoAtual doInBackground -> enviarPosicao");
+			try {
+				Gson gson = new Gson();
+				String json = gson.toJson(((LocalizacaoPerueiro)_localizacaoPerueiro));
+				json = "{LocalizacaoPerueiro:[ " + json + "]}" ;
+				JSONObject jsonObjSend = null;
+				try {
+					jsonObjSend = new JSONObject(json);
+				} catch (JSONException e2) {
+					// TODO Auto-generated catch block
+					Log.i(Constantes.TAG, "EnviarPosicaoAtual doInBackground -> enviarPosicao JSONException e2" + e2.toString());
+				}
+				try {
+					jsonObjSend.accumulate("Excluir", false);
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					Log.i(Constantes.TAG, "EnviarPosicaoAtual doInBackground -> enviarPosicao JSONException e1" + e1.toString());
+				}
+				jsonConverter.makeHttpRequest(Constantes.SERVIDOR_URL_ENVIAR_DADOSJSON, Constantes.METODO_POST, null,jsonObjSend);
+			} catch (Exception e) {
+				// TODO: handle exception
+				Log.e(Constantes.TAG, "EnviarPosicaoAtual doInBackground -> enviarPosicao Exception:"+e.toString());
+			}
+		}
+		
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onConnected(Bundle connectionHint) {
+		// TODO Auto-generated method stub
+		mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(TEMPO_PARA_UPDATE);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+	}
+
+	@Override
+	public void onConnectionSuspended(int cause) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+    @Override
+    public void onLocationChanged(Location location) {
+    	Log.i(Constantes.TAG, "EnviarPosicaoAtual -> onLocationChanged(Location location)");
+    	mTotalAlteracoes++;
+    	mLatitude = location.getLatitude();
+        mLongitude = location.getLongitude();
+		EnviarPosicaoAtual.Enviar enviar = new Enviar(this);
+		enviar.execute();
+		if (Constantes.MOSTRAR_COORDENADAS_ROTA) {
+			IniciarRota.mostrarInformativoPosicaoGPS();
+		}
+		
+    }
+	
+}

@@ -1,0 +1,22 @@
+package br.com.ggc.questinario.email;
+
+import android.util.Log;
+
+
+public class EnviarEmail 
+{
+	public static void enviar(final Mail m) {
+		Thread t = new Thread(new Runnable() {
+			public void run() {
+				try {
+					m.send();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					Log.e("MailApp", "Could not send email", e);
+				}
+			}
+		});
+
+		t.start();
+	}
+}

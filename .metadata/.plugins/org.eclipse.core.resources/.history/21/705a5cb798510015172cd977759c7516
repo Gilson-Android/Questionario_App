@@ -1,0 +1,5 @@
+
+public class Item {
+	String 	ds_Item;
+	int		qt_Valor;
+}

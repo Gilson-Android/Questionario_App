@@ -1,0 +1,46 @@
+package GmailSender;
+
+/ *
+* Licenciado para a Apache Software Foundation (ASF) por uma ou mais
+* Acordos de licença contribuinte. Consulte o arquivo AVISO distribuído com
+* Esta obra para informações adicionais sobre propriedade de direitos autorais.
+* A ASF licencia este arquivo para você sob a Licença Apache, Versão 2.0
+* (A "Licença"); você não pode usar esse arquivo exceto em conformidade com
+* Licença. Você pode obter uma cópia da Licença em
+*
+* Http://www.apache.org/licenses/LICENSE-2.0
+*
+* A menos que exigido por lei aplicável ou acordado por escrito, o software
+* Distribuído sob a Licença é distribuído "COMO ESTÁ",
+* SEM GARANTIAS OU CONDIÇÕES DE QUALQUER TIPO, expressa ou implícita.
+* Consulte a licença para as permissões específicas ao seu idioma e
+* Limitações sob a Licença.
+* /
+
+/ **
+*author Alexander Y. Kleymenov
+*version $ Revision $
+* /
+
+
+import java. de segurança. AccessController; 
+import java. de segurança. Provider;
+
+pública  definitiva  classe  JSSEProvider  estende  Provider  {
+
+   público  JSSEProvider ()  {super 
+       ("HarmonyJSSE",  1,0,  "Harmony JSSE Provider" ); 
+       AccessController . doPrivileged ( new java . security . PrivilegedAction < Void >()  { 
+           public  Void run ()  { 
+               put ( "SSLContext.TLS" , 
+                       "org.apache.harmony.xnet.provider.jsse.SSLContextImpl" ); 
+               put ( "Alg.Alias.SSLContext.TLSv1" ,  "TLS" ); 
+               put ( "KeyManagerFactory.X509" , 
+                       "org.apache.harmony.xnet.provider.jsse.KeyManagerFactoryImpl" ); 
+               put ( "TrustManagerFactory.X509" , 
+                       "org.apache.harmony.xnet.provider.jsse.TrustManagerFactoryImpl" ); 
+               return  null ; 
+           } 
+       }); 
+   } 
+}

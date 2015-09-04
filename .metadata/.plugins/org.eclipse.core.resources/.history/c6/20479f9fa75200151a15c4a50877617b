@@ -1,0 +1,24 @@
+package br.com.ggc.questinario.email;
+
+import android.util.Log;
+
+public class Email {
+
+	public static void Enviar() {
+
+				GMailSender sender = new GMailSender("gilsonlig100@gmail.com",
+						"gilsonliglig12345");
+				try {
+					sender.sendMail("Titulo", "Corpo Email",
+							"gilsonlig100@gmail.com", "gilsonlig100@gmail.com");
+				} catch (Exception e) {
+					Log.e("SendMail", e.getMessage(), e);
+				}
+			}
+
+	new Thread() {
+		public void run() {
+			
+		}.start();
+	}
+}

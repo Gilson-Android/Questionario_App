@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="vermelho_destaque">#F80212</color>
+    <color name="Azul_Claro">#4682B4</color>
+    <color name="Azul"> #0192f6</color>
+
+</resources>

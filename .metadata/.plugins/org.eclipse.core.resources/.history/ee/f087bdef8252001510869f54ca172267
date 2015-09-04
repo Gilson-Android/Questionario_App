@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#3F51B5</item>
+        <item name="colorPrimaryDark">#FF0066</item>
+        <item name="colorAccent">#FF0000</item>
+        
+        <item name="colorAccent">@color/AccentColor</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:textColorHint">@color/BackgroundtWhiteColor</item>
+        <item name="colorControlNormal">@color/BackgroundtWhiteColor</item>
+        <item name="colorControlActivated">#ff0000</item>
+        <item name="colorControlHighlight">@color/BackgroundtWhiteColor</item>
+    </style>
+
+</resources>

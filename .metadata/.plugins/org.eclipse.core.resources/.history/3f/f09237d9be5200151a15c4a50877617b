@@ -1,0 +1,21 @@
+package br.com.ggc.questinario.Util;
+
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+
+public class Util {
+	public static void travarTela(Activity contexto, boolean travar){
+		if(travar){
+			int currentOrientation = contexto.getResources().getConfiguration().orientation; 
+			if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+				contexto.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+			}
+			else {
+				contexto.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+			}
+		} else {
+			contexto.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+		}
+	}
+}

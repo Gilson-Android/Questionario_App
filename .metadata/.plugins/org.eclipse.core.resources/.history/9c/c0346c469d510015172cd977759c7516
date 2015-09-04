@@ -1,0 +1,21 @@
+package br.com.ggc.questinario.adapters;
+
+public class PagerAdapter extends FragmentStatePagerAdapter {
+    int numOfTabs;
+ 
+    public PagerAdapter(FragmentManager fm, int numOfTabs) {
+        super(fm);
+        this.numOfTabs = numOfTabs;
+    }
+ 
+    @Override
+    public Fragment getItem(int position) {
+ 
+       return TabFragment.getInstance(position);
+    }
+ 
+    @Override
+    public int getCount() {
+        return numOfTabs;
+    }
+}

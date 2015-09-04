@@ -1,0 +1,5 @@
+package br.com.ggc.questinario.adapters;
+
+public class PagerAdapter {
+
+}

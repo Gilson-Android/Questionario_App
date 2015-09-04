@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+   <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+    
+	<style name="MyToolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    	<item name="colorPrimary">@color/Azul_Claro</item>
+        <item name="colorPrimaryDark">@color/Azul</item>
+	</style>
+</resources>

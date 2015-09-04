@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#332396</item>
+        <item name="colorPrimaryDark">#FF0066</item>
+        <item name="colorAccent">#FF0000</item>
+        
+        <item name="android:textColorHint">#FF0000</item>
+        <item name="colorControlNormal">#3F51B5</item>
+        <item name="colorControlActivated">#ff0000</item>
+        <item name="colorControlHighlight">#FF0066</item>
+    </style>
+
+</resources>
