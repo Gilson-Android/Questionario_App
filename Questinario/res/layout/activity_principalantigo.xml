@@ -20,7 +20,7 @@
             android:max="10"
             android:layout_gravity="center"
             app:seekMode="true"
-            app:contourColor="@color/Azul_Claro"
+            app:contourColor="@color/primary_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:showUnit="false">

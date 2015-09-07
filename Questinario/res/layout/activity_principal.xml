@@ -14,7 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:background="?attr/colorPrimary"
+        android:background="@color/primary_dark"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:tabGravity="fill"
@@ -28,12 +28,22 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/textCategoria"
-            android:theme="@style/AppTheme"
+            android:id="@+id/textSubTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            
+            android:gravity="center|top"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/SubDescricao"/>
+
+        <TextView
+            android:id="@+id/textCategoria"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -45,34 +55,32 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:animateLayoutChanges="true"
-            android:visibility="gone"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_Nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+
                 <EditText
                     android:id="@+id/edNome"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/Azul"
-                    android:singleLine="true"
-                	android:textColorHint="@color/Azul_Claro"
-                    android:hint="Nome" />
+                    android:hint="Nome"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/text_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+
                 <EditText
                     android:id="@+id/edEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
-                    android:textColor="@color/Azul"
-                	android:textColorHint="@color/Azul_Claro"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -82,18 +90,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:animateLayoutChanges="true"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:animateLayoutChanges="true"
             android:max="10"
-            app:rimColor="?attr/colorPrimary"
-            app:contourColor="@color/Azul_Claro"
             app:barColor="#bd0d2a"
-            app:barColor1="#dfca1d" 
+            app:barColor1="#dfca1d"
             app:barColor2="#dfca1d"
-            app:barColor3="@color/Azul"
+            app:barColor3="@color/primary"
+            app:contourColor="@color/accent"
+            app:rimColor="?attr/colorPrimary"
             app:seekMode="true"
             app:showUnit="false" >
         </br.com.ggc.questinario.Util.CircleProgressView>
@@ -109,8 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|bottom"
-            android:animateLayoutChanges="true"
             android:layout_marginBottom="16dp"
+            android:animateLayoutChanges="true"
             android:onClick="onClickFabVoltar"
             android:src="@drawable/ic_voltar_branco_48dp"
             android:tint="@android:color/white"
@@ -127,9 +135,9 @@
             android:id="@+id/fabProximo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
             android:layout_gravity="right|bottom"
             android:layout_marginBottom="16dp"
+            android:animateLayoutChanges="true"
             android:onClick="onClickFabProximo"
             android:src="@drawable/ic_concluido_ordem"
             android:tint="@android:color/white"

@@ -1,17 +1,13 @@
 package br.com.ggc.questinario;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.TranslateAnimation;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-@SuppressWarnings("deprecation")
-public class ActivityBemVindo extends FragmentActivity {
+public class ActivityBemVindo extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +34,6 @@ public class ActivityBemVindo extends FragmentActivity {
 		findViewById(R.id.tvConteudo).startAnimation(translation1);
 
 
-	}
-
-	private int getDisplayHeight() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		return metrics.widthPixels;
 	}
 
 	public void onClickFab(View v) {

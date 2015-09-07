@@ -14,6 +14,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -27,10 +28,10 @@ import br.com.ggc.questinario.Util.Dados;
 import br.com.ggc.questinario.Util.Util;
 import br.com.ggc.questinario.segundoplano.Enviar;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class ActivityPrincipal extends AppCompatActivity {
+public class ActivityPrincipal extends ActionBarActivity {
 
 	private TextView mTitulo;
+	private TextView mSubTitulo;
 	private EditText mNome;
 	private EditText mEmail;
 	private Toolbar mToolbar;
@@ -40,18 +41,33 @@ public class ActivityPrincipal extends AppCompatActivity {
 	private FloatingActionButton mFabProximo;
 	private FloatingActionButton mFabVoltar;
 	private ArrayList<String> mItens;
-	private SharedPreferences preferences;
-	private int posicao;
+	private SharedPreferences mPreferences;
+	private int mPposicao;
 
-	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_principal);
+		
+		mPreferences = getSharedPreferences("questinario",Context.MODE_WORLD_WRITEABLE);
+
+		if (!Dados.getShared(this, "abrirBoasVinda", false)) {
+
+			SharedPreferences.Editor editor = mPreferences.edit();
+			editor.putBoolean("abrirBoasVinda", true);
+			editor.apply();
+			editor = null;
+		
+			Intent it = new Intent(this, ActivityBemVindo.class);
+			startActivity(it);
+		}
 
 		// Carrega as views
 		carregarViews();
 
+		mToolbar.setTitle("Meus pedidos");
+		mToolbar.setSubtitle("Questionário");
+		mToolbar.setLogo(R.drawable.ic_launcher);
 		setSupportActionBar(mToolbar);
 
 		carregarTabs();
@@ -66,41 +82,28 @@ public class ActivityPrincipal extends AppCompatActivity {
 					@Override
 					public void onTabSelected(Tab arg0) {
 						// TODO Auto-generated method stub
-						posicao = arg0.getPosition();
+						mPposicao = arg0.getPosition();
 						carregarTab(arg0.getPosition());
 					}
 
 					@Override
 					public void onTabReselected(Tab arg0) {
-						posicao = arg0.getPosition();
-						if (posicao < mItens.size() -1) {
+						mPposicao = arg0.getPosition();
+						if (mPposicao < mItens.size() -1) {
 							carregarTab(arg0.getPosition());
 						}
 					}
 				});
 
-		preferences = getSharedPreferences("questinario",Context.MODE_WORLD_WRITEABLE);
-
-		if (!Dados.getShared(this, "brirBoasVinda", false)) {
-
-			SharedPreferences.Editor editor = preferences.edit();
-			editor.putBoolean("brirBoasVinda", true);
-			editor.apply();
-			editor = null;
-		
-			Intent it = new Intent(this, ActivityBemVindo.class);
-			startActivity(it);
-		}
 	}
 
 	public void onClickFabProximo(View v) {
 
-		if (posicao == mItens.size() - 1) {
+		if (mPposicao == mItens.size() - 1) {
 			if (validarCampos()) {
 				Enviar envio = new Enviar(this, mEmail.getText().toString());
-				mTabLayout.getTabAt(posicao).setIcon(R.drawable.ic_done_white_18dp);
-				
-				SharedPreferences.Editor editor = preferences.edit();
+				mTabLayout.getTabAt(mPposicao).setIcon(R.drawable.ic_done_white_18dp);
+				SharedPreferences.Editor editor = mPreferences.edit();
 				editor.putString("nome", mNome.getText().toString());
 				editor.putString("email",mEmail.getText().toString());
 				editor.apply();
@@ -110,21 +113,22 @@ public class ActivityPrincipal extends AppCompatActivity {
 				envio.execute();
 			}
 		} else {
-			mTabLayout.getTabAt(posicao).setIcon(R.drawable.ic_done_white_18dp);
+			mTabLayout.getTabAt(mPposicao).setIcon(R.drawable.ic_done_white_18dp);
 			salvarTab();
-			mTabLayout.getTabAt(posicao + 1).select();
+			mTabLayout.getTabAt(mPposicao + 1).select();
 		}
 	}
 
 	public void onClickFabVoltar(View v) {
 
-		if (posicao > 0) {
-			mTabLayout.getTabAt(posicao - 1).select();
-			carregarTab(posicao);
+		if (mPposicao > 0) {
+			mTabLayout.getTabAt(mPposicao - 1).select();
+			carregarTab(mPposicao);
 		}
 	}
 
 	private void carregarViews() {
+		mSubTitulo = (TextView) findViewById(R.id.textSubTitulo);
 		mFabVoltar = (FloatingActionButton) findViewById(R.id.fabVoltar);
 		mFabProximo = (FloatingActionButton) findViewById(R.id.fabProximo);
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -144,12 +148,14 @@ public class ActivityPrincipal extends AppCompatActivity {
 		}
 		mTitulo.setText(mItens.get(index).toString());
 		if (index == mItens.size() - 1) {
-			posicao = index;
+			mPposicao = index;
 			mEnvio.setVisibility(View.VISIBLE);
 			mCircleView.setVisibility(View.GONE);
+			mSubTitulo.setVisibility(View.GONE);
 			mTabLayout.getTabAt(index).select();
 			
 		} else {
+			mSubTitulo.setVisibility(View.VISIBLE);
 			mEnvio.setVisibility(View.GONE);
 			mCircleView.setVisibility(View.VISIBLE);
 			mCircleView.setValue(Dados.getShared(ActivityPrincipal.this, "Tab"+ index, (int) 0));
@@ -158,9 +164,9 @@ public class ActivityPrincipal extends AppCompatActivity {
 	}
 
 	private void salvarTab() {
-		SharedPreferences.Editor editor = preferences.edit();
-		editor.putInt("Tab" + posicao, mCircleView.getValue() + 1);
-		editor.putBoolean("Tab_" + posicao, true);
+		SharedPreferences.Editor editor = mPreferences.edit();
+		editor.putInt("Tab" + mPposicao, mCircleView.getValue() + 1);
+		editor.putBoolean("Tab_" + mPposicao, true);
 		editor.apply();
 		editor = null;
 	}
