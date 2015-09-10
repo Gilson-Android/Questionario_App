@@ -66,7 +66,7 @@ public class ActivityPrincipal extends ActionBarActivity {
 		carregarViews();
 
 		mToolbar.setTitle("Meus pedidos");
-		mToolbar.setSubtitle("Questionário");
+		mToolbar.setSubtitle("QuestionÃ¡rio");
 		mToolbar.setLogo(R.drawable.ic_launcher);
 		setSupportActionBar(mToolbar);
 
@@ -221,7 +221,7 @@ public class ActivityPrincipal extends ActionBarActivity {
 			} 
 		}
 		if (erro) {
-			Util.exibirMensagem("Pendências", "Por favor, defina seu nivel de conhecimento nos itens em destaque vemelho.", this, true, true);
+			Util.exibirMensagem("PendÃªncias", "Por favor, defina seu nivel de conhecimento nos itens em destaque vemelho.", this, true, true);
 			return false;
 		}
 		
@@ -234,7 +234,7 @@ public class ActivityPrincipal extends ActionBarActivity {
 			return false;
 		}
 		if (!Util.validarEmail(mEmail.getText().toString())) {
-			mEmail.setError("Informe um Email válido.");
+			mEmail.setError("Informe um Email valido.");
 			return false;
 		}
 		return true;
@@ -243,7 +243,7 @@ public class ActivityPrincipal extends ActionBarActivity {
 	public static void retornoServidor(boolean _b, Activity _activity) {
 		// TODO Auto-generated method stub
 		if (_b) {
-			Util.exibirMensagem("Envio - Ok", "Seu questionário foi enviado com sucesso", _activity, true, true);
+			Util.exibirMensagem("Envio - Ok", "Seu questionÃ¡rio foi enviado com sucesso", _activity, true, true);
 		}else {
 			Util.exibirMensagem("Envio - Erro", "Ops! Algum problema aconteceu, tente novamente mais tarde.", _activity, true, true);
 		}
